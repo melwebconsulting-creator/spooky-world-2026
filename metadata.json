@@ -1,0 +1,6 @@
+{
+  "name": "SPOOKY WORLD 2026",
+  "description": "Enter if you dare... Leave if you can! The ultimate interactive Halloween entertainment website featuring games, trivia, quizzes, ghost pranks, fortune telling, and downloadable certificates.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

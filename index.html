@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPOOKY WORLD 2026 — Enter if you dare... Leave if you can! 👻</title>
+  <meta name="description" content="Enter if you dare... Leave if you can! The ultimate interactive Halloween entertainment website featuring games, trivia, quizzes, ghost pranks, fortune telling, and downloadable certificates.">
+  <meta property="og:title" content="SPOOKY WORLD 2026 — Enter if you dare... Leave if you can! 👻">
+  <meta property="og:description" content="Interactive Halloween fun: Personality Quiz, Trivia, Ghost Pranks, Pumpkin Clicker, Haunted House Challenge, and personalized Certificates!">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Cinzel:wght@600;800;900&family=Outfit:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- jsPDF for direct client-side PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="spooky-body">
+
+  <!-- Ambient Floating Background Particles (Bats, Ghosts, Embers) -->
+  <div id="ambientParticles" class="ambient-particles" aria-hidden="true"></div>
+
+  <!-- Accessibility Skip Link -->
+  <a href="#mainContent" class="skip-link">Skip to main spooky content</a>
+
+  <!-- Audio Controls & Notification Header -->
+  <header class="spooky-header" role="banner">
+    <div class="header-inner">
+      <a href="#hero" class="brand-logo" aria-label="Spooky World 2026 Home">
+        <span class="brand-pumpkin" aria-hidden="true">🎃</span>
+        <span class="brand-text">
+          <span class="brand-main">SPOOKY WORLD</span>
+          <span class="brand-year">2026</span>
+        </span>
+      </a>
+
+      <!-- Quick Nav for Activities -->
+      <nav class="spooky-nav" aria-label="Spooky Attractions Navigation">
+        <ul class="nav-links">
+          <li><a href="#quiz" class="nav-link">Personality</a></li>
+          <li><a href="#prank" class="nav-link">Ghost Prank</a></li>
+          <li><a href="#fortune" class="nav-link">Fortune</a></li>
+          <li><a href="#rather" class="nav-link">Would You Rather</a></li>
+          <li><a href="#trivia" class="nav-link">Trivia</a></li>
+          <li><a href="#clicker" class="nav-link">Pumpkin Game</a></li>
+          <li><a href="#costume" class="nav-link">Costumes</a></li>
+          <li><a href="#jokes" class="nav-link">Jokes</a></li>
+          <li><a href="#haunted-house" class="nav-link">Haunted Doors</a></li>
+          <li><a href="#certificates" class="nav-link nav-highlight">Certificates 📜</a></li>
+        </ul>
+      </nav>
+
+      <!-- Audio & Spooky Pass Tracker -->
+      <div class="header-actions">
+        <!-- Spooky Pass Quick Indicator -->
+        <a href="#certificates" class="spooky-pass-pill" title="View your Halloween Achievements & Certificates">
+          <span class="pass-icon">🦇</span>
+          <span class="pass-text"><span id="headerUnlockedCount">0</span>/5 Badges</span>
+        </a>
+
+        <!-- Sound FX Toggle -->
+        <button id="sfxToggle" class="icon-btn" aria-label="Toggle sound effects (currently ON)" title="Toggle Sound Effects">
+          <span id="sfxIcon">🔊</span>
+        </button>
+
+        <!-- Ambient Music Toggle (OFF by default) -->
+        <button id="musicToggle" class="icon-btn" aria-label="Toggle spooky background music (currently OFF)" title="Toggle Spooky Music (OFF by default)">
+          <span id="musicIcon">🔇</span>
+          <span class="music-label">Music</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" class="mobile-toggle-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobileDrawer" class="mobile-drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <span class="drawer-title">👻 Spooky Directory</span>
+      <button id="closeDrawerBtn" class="close-btn" aria-label="Close menu">&times;</button>
+    </div>
+    <ul class="drawer-links">
+      <li><a href="#hero" class="drawer-link">🏰 Home & Haunted House</a></li>
+      <li><a href="#quiz" class="drawer-link">🧠 Personality Quiz</a></li>
+      <li><a href="#prank" class="drawer-link">👻 Ghost Prank Generator</a></li>
+      <li><a href="#fortune" class="drawer-link">🔮 Spooky Fortune Teller</a></li>
+      <li><a href="#rather" class="drawer-link">⚡ Would You Rather?</a></li>
+      <li><a href="#trivia" class="drawer-link">❓ Halloween Trivia (30 Qs)</a></li>
+      <li><a href="#clicker" class="drawer-link">🎃 Pumpkin Clicker Game</a></li>
+      <li><a href="#costume" class="drawer-link">🎭 Costume Picker</a></li>
+      <li><a href="#jokes" class="drawer-link">🃏 Halloween Joke Machine</a></li>
+      <li><a href="#haunted-house" class="drawer-link">🚪 Haunted House Challenge</a></li>
+      <li><a href="#certificates" class="drawer-link drawer-cert">📜 Certificate Generator</a></li>
+    </ul>
+    <div class="drawer-footer">
+      <p class="drawer-tagline">"Enter if you dare... Leave if you can!"</p>
+    </div>
+  </div>
+
+  <main id="mainContent">
+
+    <!-- ========================================== -->
+    <!-- SECTION 1: HOMEPAGE / HERO                 -->
+    <!-- ========================================== -->
+    <section id="hero" class="hero-section">
+      <div class="hero-fog-overlay"></div>
+      <div class="container hero-container">
+
+        <!-- Countdown Banner to Halloween -->
+        <div class="countdown-card" role="region" aria-label="Countdown to Halloween">
+          <div class="countdown-badge">
+            <span class="pulse-dot"></span>
+            <span>COUNTDOWN TO HALLOWEEN NIGHT</span>
+          </div>
+          <div class="countdown-timer" id="countdownTimer">
+            <div class="time-block">
+              <span class="time-number" id="cdDays">00</span>
+              <span class="time-label">DAYS</span>
+            </div>
+            <span class="time-colon">:</span>
+            <div class="time-block">
+              <span class="time-number" id="cdHours">00</span>
+              <span class="time-label">HOURS</span>
+            </div>
+            <span class="time-colon">:</span>
+            <div class="time-block">
+              <span class="time-number" id="cdMins">00</span>
+              <span class="time-label">MINUTES</span>
+            </div>
+            <span class="time-colon">:</span>
+            <div class="time-block">
+              <span class="time-number" id="cdSecs">00</span>
+              <span class="time-label">SECONDS</span>
+            </div>
+          </div>
+          <p class="countdown-target" id="countdownTargetText">Targeting October 31, 2026 · The Witching Hour</p>
+        </div>
+
+        <!-- Main Title & Tagline -->
+        <div class="hero-header-wrap">
+          <h1 class="hero-title animate-flicker">
+            <span class="title-glow">SPOOKY WORLD</span>
+            <span class="title-year">2026</span>
+          </h1>
+          <p class="hero-tagline">"Enter if you dare... Leave if you can! 👻"</p>
+          <p class="hero-intro">
+            Welcome, mortal visitor! Step through the spectral gates into the premier worldwide Halloween carnival of 2026.
+            Answer funny quizzes, unlock eerie secrets, smash pumpkins, conquer trivia, and earn your official printable certificates!
+          </p>
+        </div>
+
+        <!-- Primary CTA Buttons -->
+        <div class="hero-cta-group">
+          <a href="#activities" class="spooky-btn btn-primary" id="enterWorldBtn">
+            <span>Enter the Spooky World 🎃</span>
+          </a>
+          <a href="#certificates" class="spooky-btn btn-secondary">
+            <span>Claim Certificates 📜</span>
+          </a>
+          <button id="guideModalBtn" class="spooky-btn btn-ghost" aria-haspopup="dialog">
+            <span>Visitor Instructions 📖</span>
+          </button>
+        </div>
+
+        <!-- Interactive Haunted House Illustration & Clickable Characters -->
+        <div class="haunted-illustration-wrapper" aria-label="Interactive Haunted House Scene">
+          <!-- Full Moon SVG -->
+          <div class="moon-wrap" id="spookyMoon" title="Click the moon for a spooky howl!">
+            <div class="moon-crater c1"></div>
+            <div class="moon-crater c2"></div>
+            <div class="moon-crater c3"></div>
+            <div class="bat-silhouette bat-1" aria-hidden="true">🦇</div>
+            <div class="bat-silhouette bat-2" aria-hidden="true">🦇</div>
+            <div class="bat-silhouette bat-3" aria-hidden="true">🦇</div>
+          </div>
+
+          <!-- The Haunted Victorian Manor (SVG Artwork) -->
+          <svg class="haunted-manor-svg" viewBox="0 0 1000 620" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Haunted Manor illustration with glowing windows and crooked turrets">
+            <defs>
+              <linearGradient id="roofGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2a0845" />
+                <stop offset="100%" stop-color="#110322" />
+              </linearGradient>
+              <linearGradient id="wallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#1f1035" />
+                <stop offset="100%" stop-color="#0c0416" />
+              </linearGradient>
+              <radialGradient id="windowGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffe66d" />
+                <stop offset="60%" stop-color="#ff9900" />
+                <stop offset="100%" stop-color="#cc5200" stop-opacity="0.8" />
+              </radialGradient>
+              <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#140727" />
+                <stop offset="100%" stop-color="#05010a" />
+              </linearGradient>
+            </defs>
+
+            <!-- Spooky Hill Base -->
+            <path d="M0 520 Q250 470 500 500 T1000 510 L1000 620 L0 620 Z" fill="url(#groundGrad)" />
+
+            <!-- Spooky Dead Trees -->
+            <g class="spooky-tree" stroke="#0a0314" stroke-width="8" stroke-linecap="round">
+              <path d="M120 540 L130 380 L100 320 M130 380 L160 300 M110 330 L80 300 M145 340 L180 320" />
+              <path d="M870 540 L860 360 L890 300 M860 360 L830 280 M880 310 L910 270 M845 320 L810 300" />
+            </g>
+
+            <!-- Main Haunted House Silhouette -->
+            <!-- Foundation and Wings -->
+            <rect x="340" y="280" width="320" height="230" fill="url(#wallGrad)" stroke="#3e1a6d" stroke-width="2" />
+            <polygon points="320,280 500,120 680,280" fill="url(#roofGrad)" stroke="#ff7700" stroke-width="2" />
+
+            <!-- Left Tower -->
+            <rect x="230" y="240" width="120" height="270" fill="url(#wallGrad)" stroke="#3e1a6d" stroke-width="2" />
+            <polygon points="210,240 290,80 370,240" fill="url(#roofGrad)" stroke="#ff7700" stroke-width="2" />
+
+            <!-- Right Tower -->
+            <rect x="650" y="260" width="120" height="250" fill="url(#wallGrad)" stroke="#3e1a6d" stroke-width="2" />
+            <polygon points="630,260 710,110 790,260" fill="url(#roofGrad)" stroke="#ff7700" stroke-width="2" />
+
+            <!-- Crooked Chimney with Smoke -->
+            <polygon points="610,180 635,175 645,110 618,112" fill="#1f1035" stroke="#ff7700" stroke-width="1.5" />
+            <circle cx="630" cy="90" r="14" fill="#a855f7" opacity="0.35" class="smoke-puff p1" />
+            <circle cx="640" cy="65" r="18" fill="#a855f7" opacity="0.25" class="smoke-puff p2" />
+
+            <!-- Glowing Windows (Clickable for easter eggs!) -->
+            <!-- Attic Window (Round) -->
+            <g id="atticWindow" class="interactive-window" role="button" tabindex="0" aria-label="Peek inside the attic window">
+              <circle cx="500" cy="205" r="32" fill="url(#windowGlow)" class="glow-flicker" />
+              <line x1="500" y1="173" x2="500" y2="237" stroke="#1f1035" stroke-width="4" />
+              <line x1="468" y1="205" x2="532" y2="205" stroke="#1f1035" stroke-width="4" />
+              <!-- Shadow of a monster/ghost inside attic -->
+              <text x="490" y="215" font-size="22" class="window-creature">👀</text>
+            </g>
+
+            <!-- Tower Windows -->
+            <rect x="270" y="290" width="40" height="60" rx="10" fill="url(#windowGlow)" class="glow-flicker" />
+            <line x1="290" y1="290" x2="290" y2="350" stroke="#1f1035" stroke-width="3" />
+
+            <rect x="690" y="310" width="40" height="60" rx="10" fill="url(#windowGlow)" class="glow-flicker-delayed" />
+            <line x1="710" y1="310" x2="710" y2="370" stroke="#1f1035" stroke-width="3" />
+
+            <!-- Main Hall Windows -->
+            <rect x="380" y="330" width="45" height="70" rx="8" fill="url(#windowGlow)" class="glow-flicker" />
+            <rect x="575" y="330" width="45" height="70" rx="8" fill="url(#windowGlow)" class="glow-flicker-delayed" />
+
+            <!-- Ornate Creaky Double Door -->
+            <rect x="465" y="400" width="70" height="110" rx="6" fill="#2d1304" stroke="#ff7700" stroke-width="2" />
+            <path d="M500 400 L500 510" stroke="#120500" stroke-width="3" />
+            <circle cx="488" cy="460" r="4" fill="#ffd700" />
+            <circle cx="512" cy="460" r="4" fill="#ffd700" />
+
+            <!-- Graveyard Tombstones -->
+            <g class="tombstone-group">
+              <!-- Tombstone 1 -->
+              <path d="M190 530 Q190 490 210 490 Q230 490 230 530 Z" fill="#4a5568" stroke="#1a202c" stroke-width="2" />
+              <text x="198" y="515" font-size="11" fill="#cbd5e0" font-family="sans-serif">R.I.P</text>
+
+              <!-- Tombstone 2 -->
+              <path d="M780 535 Q780 485 805 485 Q830 485 830 535 Z" fill="#4a5568" stroke="#1a202c" stroke-width="2" />
+              <text x="793" y="510" font-size="10" fill="#cbd5e0" font-family="sans-serif">BOO!</text>
+            </g>
+
+            <!-- Carved Jack-o'-Lanterns in yard -->
+            <g class="yard-pumpkin" transform="translate(370, 480)">
+              <ellipse cx="25" cy="20" rx="22" ry="18" fill="#ff7700" />
+              <polygon points="17,14 21,19 14,19" fill="#220000" />
+              <polygon points="33,14 36,19 29,19" fill="#220000" />
+              <path d="M15 25 Q25 34 35 25 Q25 29 15 25 Z" fill="#220000" />
+              <rect x="23" y="2" width="4" height="6" fill="#2d6a4f" rx="1" />
+            </g>
+
+            <g class="yard-pumpkin" transform="translate(580, 485)">
+              <ellipse cx="25" cy="20" rx="20" ry="16" fill="#ff7700" />
+              <polygon points="18,14 21,19 15,19" fill="#220000" />
+              <polygon points="32,14 35,19 29,19" fill="#220000" />
+              <path d="M17 25 Q25 32 33 25" stroke="#220000" stroke-width="3" stroke-linecap="round" fill="none" />
+              <rect x="23" y="4" width="4" height="5" fill="#2d6a4f" rx="1" />
+            </g>
+          </svg>
+
+          <!-- Interactive Ghost Characters on the lawn! -->
+          <div class="ghost-characters-stage" aria-label="Meet our funny ghosts">
+            <div class="interactive-ghost" id="ghostBooford" role="button" tabindex="0" aria-label="Talk to Boo-ford the Friendly Ghost">
+              <div class="ghost-sprite float-slow">👻</div>
+              <span class="ghost-nametag">Boo-ford</span>
+              <div class="ghost-speech-bubble" id="speechBooford" aria-live="polite">Click me! I don't bite... much!</div>
+            </div>
+
+            <div class="interactive-ghost" id="ghostChuckles" role="button" tabindex="0" aria-label="Talk to Count Chuckles">
+              <div class="ghost-sprite float-reverse">🧛</div>
+              <span class="ghost-nametag">Count Chuckles</span>
+              <div class="ghost-speech-bubble" id="speechChuckles" aria-live="polite">I vant to tell you a dad joke!</div>
+            </div>
+
+            <div class="interactive-ghost" id="ghostGlitch" role="button" tabindex="0" aria-label="Talk to Glitchy the Poltergeist">
+              <div class="ghost-sprite float-fast">💀</div>
+              <span class="ghost-nametag">Sir Rattles</span>
+              <div class="ghost-speech-bubble" id="speechGlitch" aria-live="polite">I have a bone to pick with you!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Activities Directory Grid -->
+        <div id="activities" class="featured-activities-section">
+          <div class="section-title-wrap">
+            <h2 class="section-title">🎃 10 SPOOKTACULAR ATTRACTIONS</h2>
+            <p class="section-subtitle">Play, test your bravery, and earn badges to unlock all 5 official certificates!</p>
+          </div>
+
+          <div class="activities-grid">
+            <!-- 1. Personality Quiz -->
+            <a href="#quiz" class="activity-card">
+              <div class="card-badge">10 Questions</div>
+              <div class="card-icon">🧠</div>
+              <h3 class="card-title">Personality Quiz</h3>
+              <p class="card-desc">Are you a nocturnal Vampire, sassy Witch, clumsy Zombie, or noble Ghost?</p>
+              <div class="card-action">Take Quiz &rarr;</div>
+            </a>
+
+            <!-- 2. Ghost Prank Generator -->
+            <a href="#prank" class="activity-card">
+              <div class="card-badge">30+ Pranks</div>
+              <div class="card-icon">👻</div>
+              <h3 class="card-title">Ghost Prank Generator</h3>
+              <p class="card-desc">Spooky messages, poltergeist excuse notes, and jump-scare text copy-pastas.</p>
+              <div class="card-action">Summon Prank &rarr;</div>
+            </a>
+
+            <!-- 3. Fortune Teller -->
+            <a href="#fortune" class="activity-card">
+              <div class="card-badge">Crystal Ball</div>
+              <div class="card-icon">🔮</div>
+              <h3 class="card-title">Fortune Teller</h3>
+              <p class="card-desc">Peer into Madam Hazel's glowing orb for hilarious Halloween prophecies.</p>
+              <div class="card-action">Read Fortune &rarr;</div>
+            </a>
+
+            <!-- 4. Would You Rather -->
+            <a href="#rather" class="activity-card">
+              <div class="card-badge">20+ Dilemmas</div>
+              <div class="card-icon">⚡</div>
+              <h3 class="card-title">Would You Rather?</h3>
+              <p class="card-desc">Tough, funny Halloween dilemmas. Choose your fate and see reactions!</p>
+              <div class="card-action">Choose Dilemma &rarr;</div>
+            </a>
+
+            <!-- 5. Halloween Trivia -->
+            <a href="#trivia" class="activity-card card-featured">
+              <div class="card-badge">Certificate Required!</div>
+              <div class="card-icon">❓</div>
+              <h3 class="card-title">Halloween Trivia</h3>
+              <p class="card-desc">30 trivia questions! Score 80%+ to unlock the official Trivia Champion Certificate.</p>
+              <div class="card-action">Start Gauntlet &rarr;</div>
+            </a>
+
+            <!-- 6. Pumpkin Clicker Game -->
+            <a href="#clicker" class="activity-card">
+              <div class="card-badge">Upgrades & High Scores</div>
+              <div class="card-icon">🎃</div>
+              <h3 class="card-title">Pumpkin Clicker</h3>
+              <p class="card-desc">Smash the pumpkin, hire skeleton minions, and hoard delicious candy points!</p>
+              <div class="card-action">Play Game &rarr;</div>
+            </a>
+
+            <!-- 7. Costume Picker -->
+            <a href="#costume" class="activity-card">
+              <div class="card-badge">Zero-$0 Hacks</div>
+              <div class="card-icon">🎭</div>
+              <h3 class="card-title">Costume Picker</h3>
+              <p class="card-desc">Hilarious costume ideas, budget hacks, and witty one-liners for trick-or-treating.</p>
+              <div class="card-action">Roll Costumes &rarr;</div>
+            </a>
+
+            <!-- 8. Joke Machine -->
+            <a href="#jokes" class="activity-card">
+              <div class="card-badge">30+ Family Jokes</div>
+              <div class="card-icon">🃏</div>
+              <h3 class="card-title">Joke Machine</h3>
+              <p class="card-desc">Family-friendly dad jokes, vampire puns, and skeleton chuckles with audio rims.</p>
+              <div class="card-action">Hear Jokes &rarr;</div>
+            </a>
+
+            <!-- 9. Haunted House Challenge -->
+            <a href="#haunted-house" class="activity-card card-featured">
+              <div class="card-badge">5 Mysterious Doors</div>
+              <div class="card-icon">🚪</div>
+              <h3 class="card-title">Haunted House Challenge</h3>
+              <p class="card-desc">Unlock 5 secret doors to reveal silly challenges, secret relics, and door prizes!</p>
+              <div class="card-action">Open Doors &rarr;</div>
+            </a>
+
+            <!-- 10. Certificate Generator -->
+            <a href="#certificates" class="activity-card card-gold">
+              <div class="card-badge">PDF & PNG Downloads</div>
+              <div class="card-icon">📜</div>
+              <h3 class="card-title">Certificate Hall</h3>
+              <p class="card-desc">Claim, customize, and print 5 official achievements with real verification!</p>
+              <div class="card-action">Generate Award &rarr;</div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: HALLOWEEN PERSONALITY QUIZ      -->
+    <!-- ========================================== -->
+    <section id="quiz" class="spooky-section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 1 · Self Discovery</span>
+          <h2 class="section-title">🧠 HALLOWEEN PERSONALITY QUIZ</h2>
+          <p class="section-subtitle">Discover your true creature of the night! 10 funny questions to find out if you're a Vampire, Witch, Zombie, Ghost, Black Cat, or Pumpkin King.</p>
+        </div>
+
+        <div class="quiz-wrapper" id="quizContainer">
+          <!-- Quiz Progress Header -->
+          <div class="quiz-progress-bar-wrap">
+            <div class="quiz-progress-info">
+              <span id="quizStepText">Question 1 of 10</span>
+              <span id="quizCategoryLabel">Theme: Nocturnal Habits</span>
+            </div>
+            <div class="quiz-progress-track">
+              <div class="quiz-progress-fill" id="quizProgressFill" style="width: 10%;"></div>
+            </div>
+          </div>
+
+          <!-- Question Card -->
+          <div class="quiz-question-card" id="quizCard">
+            <h3 class="quiz-question-title" id="quizQuestionText">Loading question...</h3>
+            <div class="quiz-options-grid" id="quizOptionsGrid">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Quiz Results Container (Hidden by default) -->
+          <div class="quiz-result-card hidden" id="quizResultCard" aria-live="polite">
+            <div class="result-celebration-icon" id="quizResultIcon">🧛</div>
+            <span class="result-badge">YOUR HALLOWEEN ARCHETYPE</span>
+            <h3 class="result-title" id="quizResultTitle">The Aristocratic Vampire</h3>
+            <p class="result-tagline" id="quizResultTagline">Sleeps until 4 PM, allergic to direct sunlight, wears a dramatic cape to grocery store.</p>
+            
+            <div class="result-breakdown-grid">
+              <div class="breakdown-box">
+                <span class="breakdown-label">🦇 Spooky Strength</span>
+                <span class="breakdown-val" id="quizResultStrength">Flawless dramatic entrance</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-label">🧄 Hilarious Weakness</span>
+                <span class="breakdown-val" id="quizResultWeakness">Cannot resist garlic bread despite the curse</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-label">🍬 Favorite Candy</span>
+                <span class="breakdown-val" id="quizResultCandy">Red Velvet Truffles</span>
+              </div>
+              <div class="breakdown-box">
+                <span class="breakdown-label">🏰 Ideal Habitat</span>
+                <span class="breakdown-val" id="quizResultHabitat">Transylvanian castle with fiber optic Wi-Fi</span>
+              </div>
+            </div>
+
+            <div class="result-actions">
+              <button class="spooky-btn btn-primary" id="shareQuizResultBtn">
+                <span>Share My Result 📢</span>
+              </button>
+              <button class="spooky-btn btn-ghost" id="retakeQuizBtn">
+                <span>Retake Quiz 🔄</span>
+              </button>
+              <a href="#certificates" class="spooky-btn btn-secondary">
+                <span>View Quiz Genius Certificate 📜</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 3: GHOST PRANK GENERATOR           -->
+    <!-- ========================================== -->
+    <section id="prank" class="spooky-section section-alt">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 2 · Spectral Mischief</span>
+          <h2 class="section-title">👻 GHOST PRANK GENERATOR</h2>
+          <p class="section-subtitle">Over 30 hilarious ghost messages, paranormal excuses, and spooky texts to send your friends!</p>
+        </div>
+
+        <div class="generator-box">
+          <div class="prank-category-tabs" id="prankCategories" role="tablist" aria-label="Prank categories">
+            <button class="tab-btn active" data-category="all" role="tab">All Pranks</button>
+            <button class="tab-btn" data-category="roommate" role="tab">Roommate & House</button>
+            <button class="tab-btn" data-category="office" role="tab">Work & School</button>
+            <button class="tab-btn" data-category="text" role="tab">Midnight Texts</button>
+            <button class="tab-btn" data-category="poltergeist" role="tab">Poltergeist Excuses</button>
+          </div>
+
+          <div class="prank-display-card" id="prankCard">
+            <div class="prank-ghost-icon animate-bounce-gentle">👻</div>
+            <div class="prank-badge" id="prankCategoryBadge">Midnight Text</div>
+            <blockquote class="prank-quote" id="prankQuote">
+              "I didn't leave the kitchen cabinet doors open to scare you. I just couldn't decide which snack I wanted to haunt."
+            </blockquote>
+            <div class="prank-author" id="prankAuthor">— Casper the Indecisive Snacker</div>
+          </div>
+
+          <div class="prank-controls">
+            <button class="spooky-btn btn-primary" id="nextPrankBtn">
+              <span>Summon Another Prank 🎲</span>
+            </button>
+            <button class="spooky-btn btn-secondary" id="copyPrankBtn">
+              <span id="copyPrankLabel">Copy Message 📋</span>
+            </button>
+            <button class="spooky-btn btn-ghost" id="sharePrankBtn">
+              <span>Share Prank 📲</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 4: SPOOKY FORTUNE TELLER           -->
+    <!-- ========================================== -->
+    <section id="fortune" class="spooky-section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 3 · Mystical Visions</span>
+          <h2 class="section-title">🔮 SPOOKY FORTUNE TELLER</h2>
+          <p class="section-subtitle">Rub the mystical crystal ball of Madam Hazel for hilarious, ominous, and oddly specific Halloween prophecies!</p>
+        </div>
+
+        <div class="fortune-teller-layout">
+          <!-- Interactive Glowing Crystal Ball -->
+          <div class="crystal-ball-container">
+            <div class="crystal-ball-pedestal">
+              <div class="crystal-ball-outer" id="crystalBall" role="button" tabindex="0" aria-label="Rub the glowing crystal ball">
+                <div class="ball-glow"></div>
+                <div class="ball-inner-mist"></div>
+                <div class="ball-sparkles">
+                  <span class="sparkle s1">✨</span>
+                  <span class="sparkle s2">🔮</span>
+                  <span class="sparkle s3">⭐</span>
+                </div>
+                <div class="ball-center-rune" id="ballRune">👁️</div>
+              </div>
+              <div class="pedestal-base"></div>
+            </div>
+            <p class="ball-hint">👆 Click or tap the crystal ball to divine your fate!</p>
+          </div>
+
+          <!-- Fortune Output Panel -->
+          <div class="fortune-output-card" id="fortuneCard" aria-live="polite">
+            <div class="fortune-card-header">
+              <span class="prophecy-tag">ORACLE PROPHECY #<span id="fortuneNumber">01</span></span>
+              <div class="spookiness-rating" id="fortuneSpookiness" title="Spookiness Rating">
+                <span>Spookiness:</span> 🎃🎃🎃🎃
+              </div>
+            </div>
+
+            <h3 class="fortune-text" id="fortuneText">
+              "A mysterious black cat will cross your path today. It will not curse you, but it will judge your outfit silently for seven uninterrupted minutes."
+            </h3>
+
+            <div class="fortune-advice-box">
+              <span class="advice-label">🧙 Madam Hazel's Advice:</span>
+              <p class="advice-content" id="fortuneAdvice">Carry extra tuna treats and accept that the cat has superior fashion sense.</p>
+            </div>
+
+            <div class="fortune-actions">
+              <button class="spooky-btn btn-primary" id="consultBallBtn">
+                <span>Gaze Deeper into the Orb 🔮</span>
+              </button>
+              <button class="spooky-btn btn-ghost" id="copyFortuneBtn">
+                <span>Copy Prophecy 📋</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 5: WOULD YOU RATHER?               -->
+    <!-- ========================================== -->
+    <section id="rather" class="spooky-section section-alt">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 4 · Impossible Dilemmas</span>
+          <h2 class="section-title">⚡ WOULD YOU RATHER?</h2>
+          <p class="section-subtitle">25+ hair-raising, hilarious Halloween choices. Pick your poison and see what fellow mortals chose!</p>
+        </div>
+
+        <div class="would-you-rather-container">
+          <div class="wyr-counter">Dilemma <span id="wyrIndex">1</span> of <span id="wyrTotal">25</span></div>
+
+          <div class="wyr-cards-row">
+            <!-- Choice A -->
+            <button class="wyr-choice-card" id="wyrOptionA" aria-label="Choice A">
+              <div class="choice-letter">Option A</div>
+              <div class="choice-icon" id="wyrIconA">🧛</div>
+              <div class="choice-text" id="wyrTextA">Be forced to sleep in a coffin that smells like old gym socks</div>
+              <div class="choice-stats hidden" id="wyrStatsA">
+                <div class="choice-percentage" id="wyrPercentA">45%</div>
+                <div class="choice-votes" id="wyrVotesA">1,240 Mortals</div>
+              </div>
+            </button>
+
+            <!-- VS Divider -->
+            <div class="wyr-vs-badge" aria-hidden="true">
+              <span>VS</span>
+            </div>
+
+            <!-- Choice B -->
+            <button class="wyr-choice-card" id="wyrOptionB" aria-label="Choice B">
+              <div class="choice-letter">Option B</div>
+              <div class="choice-icon" id="wyrIconB">🎃</div>
+              <div class="choice-text" id="wyrTextB">Have your head permanently replaced with a giant glowing pumpkin</div>
+              <div class="choice-stats hidden" id="wyrStatsB">
+                <div class="choice-percentage" id="wyrPercentB">55%</div>
+                <div class="choice-votes" id="wyrVotesB">1,515 Mortals</div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Funny Reaction Box (shows after vote) -->
+          <div class="wyr-reaction-box hidden" id="wyrReactionBox" aria-live="polite">
+            <span class="reaction-emoji" id="wyrReactionEmoji">😂</span>
+            <p class="reaction-comment" id="wyrReactionText">Bold move! At least you'll save on pumpkin pie!</p>
+          </div>
+
+          <div class="wyr-actions">
+            <button class="spooky-btn btn-secondary" id="wyrNextBtn">
+              <span>Next Dilemma 🎲</span>
+            </button>
+            <button class="spooky-btn btn-ghost" id="wyrShareBtn">
+              <span>Share This Dilemma 📢</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 6: HALLOWEEN TRIVIA                -->
+    <!-- ========================================== -->
+    <section id="trivia" class="spooky-section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 5 · Knowledge Gauntlet</span>
+          <h2 class="section-title">❓ HALLOWEEN TRIVIA GAUNTLET</h2>
+          <p class="section-subtitle">30 original trivia questions covering folklore, movies, candy, and monsters. Score 80% or higher to unlock the official <strong>Trivia Champion Certificate</strong>!</p>
+        </div>
+
+        <div class="trivia-container" id="triviaContainer">
+          <!-- Trivia Scoreboard Bar -->
+          <div class="trivia-scoreboard">
+            <div class="trivia-stat-pill">
+              <span class="stat-icon">🎯</span>
+              <span>Score: <strong id="triviaCurrentScore">0</strong> / <span id="triviaAnsweredCount">0</span></span>
+            </div>
+            <div class="trivia-stat-pill">
+              <span class="stat-icon">📊</span>
+              <span>Accuracy: <strong id="triviaAccuracy">100%</strong></span>
+            </div>
+            <div class="trivia-stat-pill">
+              <span class="stat-icon">🏆</span>
+              <span>Need: <strong>80% for Certificate</strong></span>
+            </div>
+          </div>
+
+          <!-- Question Card -->
+          <div class="trivia-card" id="triviaCard">
+            <div class="trivia-header-row">
+              <span class="trivia-q-num">Question <span id="triviaQNum">1</span> of <span id="triviaTotalQuestions">10</span></span>
+              <span class="trivia-q-category" id="triviaCategory">Origins & Folklore</span>
+            </div>
+
+            <h3 class="trivia-question-text" id="triviaQuestionText">Loading trivia question...</h3>
+
+            <div class="trivia-options-list" id="triviaOptionsList">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Explanation Box (revealed upon answer) -->
+            <div class="trivia-explanation-box hidden" id="triviaExplanationBox" aria-live="polite">
+              <div class="explanation-status" id="triviaStatusText">✅ Correct!</div>
+              <p class="explanation-details" id="triviaDetailsText">Did you know? Turnips were originally carved before pumpkins in Ireland!</p>
+              <button class="spooky-btn btn-primary" id="triviaNextBtn">Next Question &rarr;</button>
+            </div>
+          </div>
+
+          <!-- Trivia Results Card (Hidden until finished) -->
+          <div class="trivia-results-card hidden" id="triviaResultsCard" aria-live="polite">
+            <div class="results-trophy-icon" id="triviaTrophyIcon">🏆</div>
+            <h3 class="results-header" id="triviaResultHeader">Trivia Gauntlet Complete!</h3>
+            <div class="results-final-score">
+              <span class="score-large" id="triviaFinalScore">9 / 10</span>
+              <span class="score-percent" id="triviaFinalPercent">(90%)</span>
+            </div>
+            <p class="results-verdict" id="triviaVerdict">Incredible! You possess ancient, forbidden Halloween knowledge.</p>
+
+            <!-- Certificate Unlock Banner inside results -->
+            <div class="trivia-cert-status-banner" id="triviaCertBanner">
+              <span class="cert-status-icon">🎉</span>
+              <div class="cert-status-text">
+                <strong id="triviaCertStatusTitle">TRIVIA CHAMPION CERTIFICATE UNLOCKED!</strong>
+                <p id="triviaCertStatusDesc">You scored $\ge$ 80%. Your name is now worthy of the Hall of Champions.</p>
+              </div>
+            </div>
+
+            <div class="results-action-row">
+              <a href="#certificates" class="spooky-btn btn-primary" id="claimTriviaCertBtn">
+                <span>Claim Official Certificate 📜</span>
+              </a>
+              <button class="spooky-btn btn-secondary" id="restartTriviaBtn">
+                <span>Play Again (New 10 Questions) 🔄</span>
+              </button>
+              <button class="spooky-btn btn-ghost" id="shareTriviaBtn">
+                <span>Share My Score 📲</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 7: PUMPKIN CLICKER GAME            -->
+    <!-- ========================================== -->
+    <section id="clicker" class="spooky-section section-alt">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 6 · Fast Clicks & Upgrades</span>
+          <h2 class="section-title">🎃 PUMPKIN CLICKER GAME</h2>
+          <p class="section-subtitle">Click the giant pumpkin, collect candy, hire undead minions, and shatter high scores! Saved locally in your browser.</p>
+        </div>
+
+        <div class="clicker-game-grid">
+          <!-- Left: Big Interactive Pumpkin Stage -->
+          <div class="clicker-stage-card">
+            <div class="clicker-score-board">
+              <div class="score-main">
+                <span class="candies-count" id="candyCount">0</span>
+                <span class="candies-label">🍬 Candies Hoarded</span>
+              </div>
+              <div class="score-rates">
+                <span>Per Click: <strong id="perClickRate">+1</strong></span>
+                <span class="dot-sep">·</span>
+                <span>Per Sec: <strong id="perSecRate">0</strong></span>
+                <span class="dot-sep">·</span>
+                <span>High Score: <strong id="highScoreRate">0</strong></span>
+              </div>
+            </div>
+
+            <!-- Big Clickable Pumpkin -->
+            <div class="pumpkin-target-wrapper">
+              <button class="giant-pumpkin-btn" id="giantPumpkinBtn" aria-label="Click the pumpkin to earn candy points">
+                <svg class="giant-pumpkin-svg" viewBox="0 0 300 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Stem -->
+                  <path d="M142 50 C140 25 155 10 170 5 C165 20 155 35 154 50 Z" fill="#2d6a4f" stroke="#1b4332" stroke-width="3" />
+                  <!-- Outer Ribs -->
+                  <ellipse cx="80" cy="155" rx="55" ry="90" fill="#e85d04" stroke="#9d0208" stroke-width="4" />
+                  <ellipse cx="220" cy="155" rx="55" ry="90" fill="#e85d04" stroke="#9d0208" stroke-width="4" />
+                  <!-- Mid Ribs -->
+                  <ellipse cx="110" cy="155" rx="55" ry="95" fill="#f48c06" stroke="#9d0208" stroke-width="4" />
+                  <ellipse cx="190" cy="155" rx="55" ry="95" fill="#f48c06" stroke="#9d0208" stroke-width="4" />
+                  <!-- Center Rib -->
+                  <ellipse cx="150" cy="155" rx="50" ry="100" fill="#faa307" stroke="#9d0208" stroke-width="4" />
+                  <!-- Carved Face (Glowing Yellow/Black) -->
+                  <!-- Left Eye -->
+                  <polygon points="105,120 130,145 95,145" fill="#1b0000" class="pumpkin-eye left-eye" />
+                  <polygon points="107,124 125,143 98,143" fill="#ffe66d" />
+                  <!-- Right Eye -->
+                  <polygon points="195,120 205,145 170,145" fill="#1b0000" class="pumpkin-eye right-eye" />
+                  <polygon points="193,124 202,143 175,143" fill="#ffe66d" />
+                  <!-- Nose -->
+                  <polygon points="150,150 160,170 140,170" fill="#ffe66d" />
+                  <!-- Mouth with jagged teeth -->
+                  <path d="M90 190 Q150 250 210 190 Q185 220 150 210 Q115 220 90 190 Z" fill="#1b0000" />
+                  <path d="M100 196 L115 196 L115 208 L100 208 Z" fill="#ffe66d" />
+                  <path d="M185 196 L200 196 L200 208 L185 208 Z" fill="#ffe66d" />
+                  <path d="M142 225 L158 225 L158 214 L142 214 Z" fill="#ffe66d" />
+                </svg>
+              </button>
+
+              <!-- Floating Numbers Container -->
+              <div id="clickerFloaters" class="floaters-layer" aria-hidden="true"></div>
+            </div>
+
+            <!-- Funny milestone message -->
+            <div class="milestone-ticker" id="clickerMilestone">
+              "Click the pumpkin! Every squish feeds your Halloween soul."
+            </div>
+          </div>
+
+          <!-- Right: Minion & Tool Upgrade Shop -->
+          <div class="clicker-shop-card">
+            <h3 class="shop-title">🛒 Spooky Upgrade Shop</h3>
+            <p class="shop-subtitle">Hire undead helpers to automatically collect candy while you sleep!</p>
+
+            <div class="upgrades-list">
+              <!-- Upgrade 1 -->
+              <button class="upgrade-row-btn" id="upgSpoon" data-id="spoon">
+                <div class="upgrade-icon">🥄</div>
+                <div class="upgrade-meta">
+                  <span class="upgrade-name">Rusty Carving Spoon</span>
+                  <span class="upgrade-desc">+1 candy per manual click</span>
+                </div>
+                <div class="upgrade-cost">
+                  <span class="cost-val" id="costSpoon">15</span> 🍬
+                  <span class="owned-val" id="ownedSpoon">(0)</span>
+                </div>
+              </button>
+
+              <!-- Upgrade 2 -->
+              <button class="upgrade-row-btn" id="upgCandle" data-id="candle">
+                <div class="upgrade-icon">🕯️</div>
+                <div class="upgrade-meta">
+                  <span class="upgrade-name">Haunted Candle</span>
+                  <span class="upgrade-desc">+2 candies every second</span>
+                </div>
+                <div class="upgrade-cost">
+                  <span class="cost-val" id="costCandle">60</span> 🍬
+                  <span class="owned-val" id="ownedCandle">(0)</span>
+                </div>
+              </button>
+
+              <!-- Upgrade 3 -->
+              <button class="upgrade-row-btn" id="upgCauldron" data-id="cauldron">
+                <div class="upgrade-icon">🧪</div>
+                <div class="upgrade-meta">
+                  <span class="upgrade-name">Witch's Sugar Brew</span>
+                  <span class="upgrade-desc">+5 candies per manual click</span>
+                </div>
+                <div class="upgrade-cost">
+                  <span class="cost-val" id="costCauldron">200</span> 🍬
+                  <span class="owned-val" id="ownedCauldron">(0)</span>
+                </div>
+              </button>
+
+              <!-- Upgrade 4 -->
+              <button class="upgrade-row-btn" id="upgSkeleton" data-id="skeleton">
+                <div class="upgrade-icon">💀</div>
+                <div class="upgrade-meta">
+                  <span class="upgrade-name">Skeleton Minion Squad</span>
+                  <span class="upgrade-desc">+15 candies every second</span>
+                </div>
+                <div class="upgrade-cost">
+                  <span class="cost-val" id="costSkeleton">650</span> 🍬
+                  <span class="owned-val" id="ownedSkeleton">(0)</span>
+                </div>
+              </button>
+
+              <!-- Upgrade 5 -->
+              <button class="upgrade-row-btn" id="upgGhostSwarm" data-id="ghostSwarm">
+                <div class="upgrade-icon">👻</div>
+                <div class="upgrade-meta">
+                  <span class="upgrade-name">Poltergeist Swarm</span>
+                  <span class="upgrade-desc">+60 candies every second</span>
+                </div>
+                <div class="upgrade-cost">
+                  <span class="cost-val" id="costGhostSwarm">2,500</span> 🍬
+                  <span class="owned-val" id="ownedGhostSwarm">(0)</span>
+                </div>
+              </button>
+            </div>
+
+            <div class="shop-reset-row">
+              <button class="btn-text-danger" id="resetClickerBtn">Reset Game Data</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 8: HALLOWEEN COSTUME PICKER        -->
+    <!-- ========================================== -->
+    <section id="costume" class="spooky-section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 7 · Spooky Fashion</span>
+          <h2 class="section-title">🎭 HALLOWEEN COSTUME PICKER</h2>
+          <p class="section-subtitle">Need a costume? Spin our generator for hilarious, clever costumes with step-by-step $0 budget hacks!</p>
+        </div>
+
+        <div class="costume-picker-wrapper">
+          <!-- Filter archetype chips -->
+          <div class="costume-archetype-tabs" id="costumeArchetypes">
+            <button class="tab-btn active" data-archetype="all">Any Chaos 🎲</button>
+            <button class="tab-btn" data-archetype="vampire">Vampire 🧛</button>
+            <button class="tab-btn" data-archetype="witch">Witch 🧙</button>
+            <button class="tab-btn" data-archetype="zombie">Zombie 🧟</button>
+            <button class="tab-btn" data-archetype="ghost">Ghost 👻</button>
+            <button class="tab-btn" data-archetype="skeleton">Skeleton 💀</button>
+            <button class="tab-btn" data-archetype="pumpkin">Pumpkin 🎃</button>
+          </div>
+
+          <!-- Costume Display Card -->
+          <div class="costume-showcase-card" id="costumeCard">
+            <div class="costume-header">
+              <span class="costume-badge" id="costumeCategoryBadge">Ghost Archetype</span>
+              <span class="costume-difficulty" id="costumeDifficulty">Difficulty: 2 Minutes</span>
+            </div>
+
+            <div class="costume-avatar-icon" id="costumeEmoji">👻</div>
+            <h3 class="costume-title" id="costumeName">The Passive-Aggressive Roommate Ghost</h3>
+            <p class="costume-tagline" id="costumeTagline">"I don't mind that you drank my oat milk... I'll just rattle the cabinets at 3 AM."</p>
+
+            <div class="costume-details-grid">
+              <div class="costume-detail-box">
+                <span class="detail-label">🧰 Supplies You Need</span>
+                <p id="costumeSupplies">One white bedsheet, a sticky note that says 'PLEASE WASH YOUR DISHES', and an empty coffee mug.</p>
+              </div>
+              <div class="costume-detail-box">
+                <span class="detail-label">💰 $0 Budget Hack</span>
+                <p id="costumeBudgetHack">Use the bedsheet you are currently sleeping on. Do not cut eye holes; just glare aggressively through the weave.</p>
+              </div>
+              <div class="costume-detail-box detail-full">
+                <span class="detail-label">💬 Killer Doorbell Quip</span>
+                <p id="costumeQuip">"Trick or treat! I'm not here for candy, I'm just checking if anyone turned off the hallway light."</p>
+              </div>
+            </div>
+
+            <div class="costume-actions">
+              <button class="spooky-btn btn-primary" id="rollCostumeBtn">
+                <span>Roll Another Costume 🎲</span>
+              </button>
+              <button class="spooky-btn btn-secondary" id="copyCostumeBtn">
+                <span>Copy Costume Idea 📋</span>
+              </button>
+              <button class="spooky-btn btn-ghost" id="shareCostumeBtn">
+                <span>Share Costume 📲</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 9: HALLOWEEN JOKE MACHINE          -->
+    <!-- ========================================== -->
+    <section id="jokes" class="spooky-section section-alt">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 8 · Bone-Tickling Humor</span>
+          <h2 class="section-title">🃏 HALLOWEEN JOKE MACHINE</h2>
+          <p class="section-subtitle">Over 30 family-friendly jokes, monster puns, and skeleton giggles. Guaranteed to rattle your funny bone!</p>
+        </div>
+
+        <div class="joke-machine-container">
+          <div class="joke-card" id="jokeCard">
+            <div class="joke-badge-row">
+              <span class="joke-num">Joke #<span id="jokeNumber">12</span></span>
+              <span class="joke-tag">Skeleton Humor</span>
+            </div>
+
+            <!-- Setup -->
+            <div class="joke-setup" id="jokeSetup">
+              "Why didn't the skeleton go to the Halloween dance?"
+            </div>
+
+            <!-- Punchline Container -->
+            <div class="joke-punchline-wrapper">
+              <button class="spooky-btn btn-secondary" id="revealPunchlineBtn">
+                <span>Reveal Punchline 🎭</span>
+              </button>
+              <div class="joke-punchline hidden" id="jokePunchline" aria-live="polite">
+                "Because he had no-body to go with! 💀🥁"
+              </div>
+            </div>
+          </div>
+
+          <div class="joke-actions">
+            <button class="spooky-btn btn-primary" id="nextJokeBtn">
+              <span>Next Funny Joke 🔄</span>
+            </button>
+            <button class="spooky-btn btn-ghost" id="copyJokeBtn">
+              <span>Copy Joke 📋</span>
+            </button>
+            <button class="spooky-btn btn-ghost" id="shareJokeBtn">
+              <span>Share Joke 📲</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 10: HAUNTED HOUSE CHALLENGE        -->
+    <!-- ========================================== -->
+    <section id="haunted-house" class="spooky-section">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 9 · The 5 Mysterious Doors</span>
+          <h2 class="section-title">🚪 HAUNTED HOUSE CHALLENGE</h2>
+          <p class="section-subtitle">Explore 5 enchanted rooms of the Spooky Manor. Open every door to conquer funny challenges, collect relics, and unlock the Master of Halloween title!</p>
+        </div>
+
+        <!-- Doors Progress tracker -->
+        <div class="doors-progress-wrap">
+          <span>Doors Unlocked: <strong id="doorsUnlockedCount">0</strong> / 5</span>
+          <div class="doors-track">
+            <div class="doors-fill" id="doorsProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- 5 Interactive 3D Doors Grid -->
+        <div class="haunted-doors-grid">
+          <!-- Door 1 -->
+          <div class="door-interactive-item" data-door="1">
+            <div class="door-frame">
+              <div class="door-inner" id="door1">
+                <div class="door-front">
+                  <span class="door-number">I</span>
+                  <span class="door-name">The Cobweb Attic</span>
+                  <div class="door-knob"></div>
+                  <span class="door-symbol">🕸️</span>
+                </div>
+                <div class="door-back">
+                  <div class="door-reward">
+                    <span class="reward-icon">🕷️</span>
+                    <strong class="reward-title">Spider's Challenge</strong>
+                    <p class="reward-desc">Do 5 spooky zombie walks across your room while groaning "Braaiiins... and cookies!"</p>
+                    <span class="relic-tag">Relic: Silver Web 🕸️</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="door-action-btn" id="doorBtn1">Open Attic Door</button>
+          </div>
+
+          <!-- Door 2 -->
+          <div class="door-interactive-item" data-door="2">
+            <div class="door-frame">
+              <div class="door-inner" id="door2">
+                <div class="door-front">
+                  <span class="door-number">II</span>
+                  <span class="door-name">Potions Dungeon</span>
+                  <div class="door-knob"></div>
+                  <span class="door-symbol">🧪</span>
+                </div>
+                <div class="door-back">
+                  <div class="door-reward">
+                    <span class="reward-icon">🧙</span>
+                    <strong class="reward-title">Witch's Concoction</strong>
+                    <p class="reward-desc">Invent a potion using 3 things currently on your desk or nightstand. Name your brew!</p>
+                    <span class="relic-tag">Relic: Emerald Vial 🧪</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="door-action-btn" id="doorBtn2">Open Dungeon Door</button>
+          </div>
+
+          <!-- Door 3 -->
+          <div class="door-interactive-item" data-door="3">
+            <div class="door-frame">
+              <div class="door-inner" id="door3">
+                <div class="door-front">
+                  <span class="door-number">III</span>
+                  <span class="door-name">Vampire's Wardrobe</span>
+                  <div class="door-knob"></div>
+                  <span class="door-symbol">🧛</span>
+                </div>
+                <div class="door-back">
+                  <div class="door-reward">
+                    <span class="reward-icon">🦇</span>
+                    <strong class="reward-title">Count's Audition</strong>
+                    <p class="reward-desc">Do your best dramatic vampire hiss into a nearby mirror without blinking!</p>
+                    <span class="relic-tag">Relic: Ruby Fang 💎</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="door-action-btn" id="doorBtn3">Open Closet Door</button>
+          </div>
+
+          <!-- Door 4 -->
+          <div class="door-interactive-item" data-door="4">
+            <div class="door-frame">
+              <div class="door-inner" id="door4">
+                <div class="door-front">
+                  <span class="door-number">IV</span>
+                  <span class="door-name">The Creaky Cellar</span>
+                  <div class="door-knob"></div>
+                  <span class="door-symbol">🗝️</span>
+                </div>
+                <div class="door-back">
+                  <div class="door-reward">
+                    <span class="reward-icon">💀</span>
+                    <strong class="reward-title">Skeleton Riddle</strong>
+                    <p class="reward-desc">"I have no flesh, no eyes, and no heart, but I never miss Halloween." What am I? (A skeleton!)</p>
+                    <span class="relic-tag">Relic: Ancient Brass Key 🗝️</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="door-action-btn" id="doorBtn4">Open Cellar Door</button>
+          </div>
+
+          <!-- Door 5 -->
+          <div class="door-interactive-item" data-door="5">
+            <div class="door-frame">
+              <div class="door-inner" id="door5">
+                <div class="door-front">
+                  <span class="door-number">V</span>
+                  <span class="door-name">Ghost Ballroom</span>
+                  <div class="door-knob"></div>
+                  <span class="door-symbol">💃</span>
+                </div>
+                <div class="door-back">
+                  <div class="door-reward">
+                    <span class="reward-icon">👻</span>
+                    <strong class="reward-title">Midnight Waltz</strong>
+                    <p class="reward-desc">Spin in a slow circle 3 times and say "Boo!" to an imaginary specter!</p>
+                    <span class="relic-tag">Relic: Spectral Crown 👑</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="door-action-btn" id="doorBtn5">Open Ballroom Door</button>
+          </div>
+        </div>
+
+        <!-- Doors Completion Alert -->
+        <div class="all-doors-unlocked-banner hidden" id="allDoorsBanner">
+          <span class="banner-icon">🏰✨</span>
+          <div class="banner-text">
+            <strong>CONGRATULATIONS, MANOR CONQUEROR!</strong>
+            <p>You opened all 5 mysterious doors of Spooky Manor! The <em>Master of Halloween</em> certificate is one step closer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 11: CERTIFICATE GENERATOR          -->
+    <!-- ========================================== -->
+    <section id="certificates" class="spooky-section section-gold-border">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Activity 10 · Official Honors</span>
+          <h2 class="section-title">📜 HALLOWEEN CERTIFICATE GENERATOR</h2>
+          <p class="section-subtitle">Personalized, high-resolution printable certificates with authentic requirement verification. Download in crisp PNG or PDF!</p>
+        </div>
+
+        <!-- Certificate Configuration Card -->
+        <div class="certificate-builder-card">
+          <div class="cert-controls-grid">
+            <!-- Name Input -->
+            <div class="cert-input-group">
+              <label for="certRecipientName" class="cert-label">Recipient's Full Name:</label>
+              <input type="text" id="certRecipientName" class="spooky-input" placeholder="e.g. Vlad the Impaler" maxlength="40" value="Morticia Addams">
+              <span class="input-hint">Type your name to see instant live preview on the certificate!</span>
+            </div>
+
+            <!-- Certificate Selector -->
+            <div class="cert-input-group">
+              <label for="certTypeSelect" class="cert-label">Select Certificate Award:</label>
+              <select id="certTypeSelect" class="spooky-select">
+                <option value="trivia">🏆 Halloween Trivia Champion (Requires ≥ 80% on Trivia)</option>
+                <option value="explorer">🗺️ Spooky World Explorer (Complete ≥ 5 Activities)</option>
+                <option value="master">👑 Master of Halloween (Trivia + Explorer + 5 Doors)</option>
+                <option value="ghostHunter">👻 Ultimate Ghost Hunter (Prank + 500 Pumpkin Clicks)</option>
+                <option value="quizGenius">🧠 Halloween Quiz Genius (Personality Quiz + Trivia)</option>
+              </select>
+              <span class="input-hint" id="certRequirementHint">Requirement: Score at least 80% on Halloween Trivia.</span>
+            </div>
+
+            <!-- Lock / Unlock Status Bar -->
+            <div class="cert-verification-status" id="certStatusBox">
+              <div class="status-indicator-col">
+                <span class="status-badge unlocked" id="certStatusBadge">UNLOCKED ✅</span>
+                <span class="status-explanation" id="certStatusExpl">Requirements satisfied! You are officially authorized to claim this award.</span>
+              </div>
+              <!-- Optional Test / Demo Mode Toggle -->
+              <div class="demo-mode-toggle">
+                <label class="toggle-switch-label" title="Enable to test and generate all certificates immediately">
+                  <input type="checkbox" id="demoModeToggle">
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-text">Preview / Test Mode (Unlock All)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Certificate Canvas and DOM Preview Frame -->
+          <div class="cert-preview-frame">
+            <div class="certificate-document" id="certificateDoc">
+              <!-- Ornate Gothic Border SVGs -->
+              <div class="cert-border-outer">
+                <div class="cert-border-inner">
+                  <!-- Corner Spiderwebs -->
+                  <span class="corner-web top-left" aria-hidden="true">🕸️</span>
+                  <span class="corner-web top-right" aria-hidden="true">🕸️</span>
+                  <span class="corner-web bottom-left" aria-hidden="true">🕸️</span>
+                  <span class="corner-web bottom-right" aria-hidden="true">🕸️</span>
+
+                  <!-- Header Crest -->
+                  <div class="cert-crest-wrap">
+                    <div class="cert-crest-bats">🦇 🦇 🦇</div>
+                    <div class="cert-org-title">SPOOKY WORLD 2026</div>
+                    <div class="cert-org-subtitle">OFFICIAL COURT OF THE SHADOW REALM</div>
+                  </div>
+
+                  <!-- Award Banner -->
+                  <div class="cert-award-ribbon">
+                    <span class="cert-ribbon-text" id="certPreviewCategory">CERTIFICATE OF ACHIEVEMENT</span>
+                  </div>
+
+                  <p class="cert-intro-text">THIS COVEN HEREBY CERTIFIES THAT</p>
+
+                  <!-- Recipient Name -->
+                  <div class="cert-recipient-name" id="certPreviewName">Morticia Addams</div>
+
+                  <p class="cert-body-text">
+                    HAS BRAVELY VENTURED THROUGH THE MISTS OF SPOOKY WORLD 2026 AND RIGHTFULLY ATTAINED THE DISTINGUISHED HONOR OF:
+                  </p>
+
+                  <!-- Achievement Title -->
+                  <div class="cert-achievement-title" id="certPreviewTitle">Halloween Trivia Champion</div>
+
+                  <p class="cert-sub-description" id="certPreviewDesc">
+                    Demonstrating extraordinary command of ancient folklore, nocturnal trivia, and supernatural knowledge under the October full moon.
+                  </p>
+
+                  <!-- Seal and Signatures Footer -->
+                  <div class="cert-footer-row">
+                    <!-- Signature 1 -->
+                    <div class="cert-signature-col">
+                      <div class="cert-signature-line" id="certSig1">Count Vladislav</div>
+                      <span class="cert-signature-title">Chancellor of Shadows</span>
+                    </div>
+
+                    <!-- Official Golden Wax Seal -->
+                    <div class="cert-wax-seal">
+                      <div class="seal-circle">
+                        <span class="seal-emoji">🎃</span>
+                        <span class="seal-text-top">SPOOKY WORLD</span>
+                        <span class="seal-text-bot">2026 OFFICIAL</span>
+                      </div>
+                    </div>
+
+                    <!-- Signature 2 & Date -->
+                    <div class="cert-signature-col">
+                      <div class="cert-signature-line" id="certSig2">Madam Hazel</div>
+                      <span class="cert-signature-title">High Witch of Spookdom</span>
+                    </div>
+                  </div>
+
+                  <!-- Certificate Meta & Legal Disclaimer -->
+                  <div class="cert-meta-bar">
+                    <span>DATE: <strong id="certPreviewDate">October 31, 2026</strong></span>
+                    <span class="dot-sep">·</span>
+                    <span>CERTIFICATE ID: <strong id="certPreviewID">SW26-TRIVIA-84920</strong></span>
+                    <span class="dot-sep">·</span>
+                    <span>VERIFIED ON CLIENT</span>
+                  </div>
+
+                  <p class="cert-disclaimer">
+                    DISCLAIMER: This certificate is a fun, decorative participation and achievement award issued by SPOOKY WORLD 2026. It is not an accredited academic qualification or governmental credential.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hidden Canvas for crisp 2400x1600 rendering -->
+            <canvas id="certCanvas" width="2400" height="1600" class="hidden-canvas" aria-hidden="true"></canvas>
+          </div>
+
+          <!-- Certificate Action Buttons -->
+          <div class="cert-actions-bar">
+            <button class="spooky-btn btn-primary" id="downloadPngBtn">
+              <span>Download as PNG 🖼️</span>
+            </button>
+            <button class="spooky-btn btn-secondary" id="downloadPdfBtn">
+              <span>Download as PDF 📄</span>
+            </button>
+            <button class="spooky-btn btn-ghost" id="printCertBtn">
+              <span>Print Certificate 🖨️</span>
+            </button>
+            <button class="spooky-btn btn-ghost" id="shareCertBtn">
+              <span>Share Award 📢</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 12: VISITOR INSTRUCTIONS MODAL     -->
+    <!-- ========================================== -->
+    <div id="guideModal" class="spooky-modal" role="dialog" aria-modal="true" aria-labelledby="guideModalTitle" aria-hidden="true">
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="guideModalTitle" class="modal-title">📖 Visitor's Spooky Guidebook</h3>
+          <button id="closeModalBtn" class="close-btn" aria-label="Close guide">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-intro">Greetings! Here is everything you need to navigate SPOOKY WORLD 2026 without losing your soul:</p>
+
+          <div class="guide-steps-list">
+            <div class="guide-step">
+              <span class="step-num">1</span>
+              <div>
+                <strong>Explore 10 Free Attractions:</strong>
+                <p>Everything is 100% free with no login required. Your high scores, pumpkin clicks, and achievements are saved safely right in your browser's local storage.</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <span class="step-num">2</span>
+              <div>
+                <strong>Earn 5 Official Certificates:</strong>
+                <p>Score 80%+ on Trivia for <em>Trivia Champion</em>, finish 5 activities for <em>Explorer</em>, or unlock all 5 doors in the Haunted House for <em>Master of Halloween</em>!</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <span class="step-num">3</span>
+              <div>
+                <strong>Audio & Effects Controls:</strong>
+                <p>Use the sound button in the top right to toggle sound effects. Background music is off by default—turn it on for atmospheric synthesized eerie tunes!</p>
+              </div>
+            </div>
+            <div class="guide-step">
+              <span class="step-num">4</span>
+              <div>
+                <strong>Share the Spook:</strong>
+                <p>Every joke, prank, fortune, and certificate has instant copy & native share buttons. Spread the Halloween joy!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="spooky-btn btn-primary" id="guideUnderstoodBtn">I'm Ready to Enter! 🎃</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="spookyToast" class="spooky-toast" role="alert" aria-live="assertive">
+      <span class="toast-icon" id="toastIcon">👻</span>
+      <span class="toast-msg" id="toastMsg">Notification message</span>
+    </div>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- SECTION 14: FOOTER                         -->
+  <!-- ========================================== -->
+  <footer class="spooky-footer" role="contentinfo">
+    <div class="container footer-container">
+      <div class="footer-top-row">
+        <div class="footer-brand-col">
+          <div class="footer-logo">
+            <span class="footer-logo-emoji">🎃</span>
+            <span class="footer-logo-text">SPOOKY WORLD 2026</span>
+          </div>
+          <p class="footer-tagline">"Enter if you dare... Leave if you can! 👻"</p>
+          <p class="footer-about">
+            The free worldwide digital Halloween carnival crafted with passion, humor, and pure vanilla web magic.
+            No trackers, no sign-ups, just spooky fun for witches, ghosts, and goblins of all ages.
+          </p>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Attractions</h4>
+          <ul class="footer-list">
+            <li><a href="#quiz">Personality Quiz</a></li>
+            <li><a href="#prank">Ghost Prank Generator</a></li>
+            <li><a href="#fortune">Spooky Fortune Teller</a></li>
+            <li><a href="#rather">Would You Rather?</a></li>
+            <li><a href="#trivia">Halloween Trivia</a></li>
+            <li><a href="#clicker">Pumpkin Clicker Game</a></li>
+            <li><a href="#haunted-house">Haunted House Doors</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4 class="footer-heading">Honors & Info</h4>
+          <ul class="footer-list">
+            <li><a href="#certificates">Certificate Generator</a></li>
+            <li><a href="#hero">Countdown to Oct 31</a></li>
+            <li><a href="#costume">Costume Picker</a></li>
+            <li><a href="#jokes">Joke Machine</a></li>
+            <li><button class="footer-link-btn" id="footerGuideBtn">Visitor Guide</button></li>
+          </ul>
+        </div>
+
+        <div class="footer-contact-col">
+          <h4 class="footer-heading">Coven Contact</h4>
+          <p class="contact-item">📧 <span>spooky@spookyworld2026.fake</span></p>
+          <p class="contact-item">📍 <span>13 Cobweb Lane, Transylvania High</span></p>
+          <div class="footer-farewell-box">
+            <span class="farewell-emoji">🦇</span>
+            <p>"Until next time... stay spooky, eat treats, and don't look under the bed!"</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <div class="footer-copyright">
+          © 2026 SPOOKY WORLD. All Rights Reserved. Built with pure HTML, CSS, and Vanilla JavaScript.
+        </div>
+        <div class="footer-privacy">
+          <span>Privacy Notice: We respect your privacy. No personal data or cookies are transmitted. All progress is saved in your local browser storage.</span>
+        </div>
+        <button id="backToTopBtn" class="back-to-top-btn" aria-label="Back to top of page">
+          <span>Top ⬆️</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="./script.js"></script>
+</body>
+</html>
